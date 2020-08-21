@@ -1,18 +1,12 @@
 #include <C:\Users\alexc\Documents\Programming\Python\Halo_Gauntlet\digital_potentiometer\X9C.h>
 
-X9C pot;
-const int inc = 2, ud = 4, cs = 7;
-const int mySize = 3;
-int incomingByte[mySize];
+const int tranPin = 2;
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(57600);
- 
-  pot.begin(cs, inc, ud);
- 
-  pot.setPotMax();
-  
+
+  pinMode(tranPin, OUTPUT);
 }
 
 void loop() {
@@ -25,14 +19,14 @@ void loop() {
     String incomingString = Serial.readString();
     int incomingInt = incomingString.toInt();
 
-    if (incomingInt >= 1 && incomingInt <= 100){
-      pot.setPot(incomingInt);
+    if (incomingInt == 1){
+      digitalWrite(tranPin, HIGH);
       Serial.println(incomingInt);
     }
     else
     {
+      digitalWrite(tranPin, LOW);
       Serial.write("INVALID INPUT.");
     }
-
   }
 }
