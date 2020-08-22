@@ -1,5 +1,6 @@
-import statistics
 import re
+import statistics
+import serial
 import time
 
 # Python Imaging Library
@@ -33,6 +34,8 @@ def check_death_scope():
         print("Scoped in or Health 1 depleted.")
         return
 
+
+ser = serial.Serial('COM3', 9600)
 
 while True:
     # Pixels of healthbar used in image for health detection
@@ -71,13 +74,19 @@ while True:
         check_death_scope()
     elif bluemode[1] < 155:
         print("health 2 depeleted!")
+        ser.write(2)
     elif bluemode[2] < 155:
         print("health 3 depeleted!")
+        ser.write(3)
     elif bluemode[3] < 155:
         print("health 4 depeleted!")
+        ser.write(4)
     elif bluemode[4] < 155:
         print("health 5 depeleted!")
+        ser.write(5)
 
     #TODO: Near Death Function
 
     #TODO: Signals to Arduino via serial
+
+ser.close()

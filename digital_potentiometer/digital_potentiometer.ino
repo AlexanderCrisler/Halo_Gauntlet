@@ -2,6 +2,15 @@
 
 const int tranPin = 2;
 
+void pulse(int pin, int repititions) {
+  for(int i = 0; i < repititions; i++){
+    digitalWrite(pin, HIGH);
+    delay(100);
+    digitalWrite(pin, LOW);
+    delay(100);
+  }
+}
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(57600);
@@ -20,12 +29,28 @@ void loop() {
     int incomingInt = incomingString.toInt();
 
     if (incomingInt == 1){
-      digitalWrite(tranPin, HIGH);
+      pulse(tranPin, 5);
+      Serial.println(incomingInt);
+    }
+    else if (incomingInt == 2){
+      pulse(tranPin, 4);
+      Serial.println(incomingInt);
+    }
+    else if (incomingInt == 3){
+      pulse(tranPin, 3);
+      Serial.println(incomingInt);
+    }
+    else if (incomingInt == 4){
+      pulse(tranPin, 2);
+      Serial.println(incomingInt);
+    }
+    else if (incomingInt == 5){
+      pulse(tranPin, 1);
       Serial.println(incomingInt);
     }
     else
     {
-      digitalWrite(tranPin, LOW);
+      //digitalWrite(tranPin, LOW);
       Serial.write("INVALID INPUT.");
     }
   }
